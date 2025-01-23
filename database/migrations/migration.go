@@ -36,6 +36,7 @@ func Migrate() {
 	createView := `
 	CREATE OR REPLACE VIEW "workflow_and_process"."view_workflow" AS
 		SELECT workflow.id,
+		workflow.system_type_id,
 		workflow.category_id,
 		workflow.flow_name,
 		workflow.description,
@@ -43,7 +44,6 @@ func Migrate() {
 		workflow.created_at,
 		workflow.updated_at,
 		workflow.deleted_at,
-		workflow.system_type_id,
 		workflow_category.category,
 		workflow_system_type.system_type
 		FROM workflow_and_process.workflow
@@ -52,8 +52,8 @@ func Migrate() {
 
 	CREATE OR REPLACE VIEW "workflow_and_process"."view_workflow_category" AS
 		SELECT workflow_category.id,
-		workflow_category.category,
 		workflow_category.system_type_id,
+		workflow_category.category,
 		workflow_system_type.system_type
 		FROM workflow_and_process.workflow_category
 	LEFT JOIN workflow_and_process.workflow_system_type ON workflow_category.system_type_id = workflow_system_type.id;

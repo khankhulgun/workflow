@@ -6,14 +6,15 @@ import (
 )
 
 type Workflow struct {
-	ID          string         `gorm:"column:id;type:uuid;default:gen_random_uuid();primaryKey" json:"id"`
-	CategoryID  string         `gorm:"column:category_id;type:uuid" json:"category_id"`
-	FlowName    string         `gorm:"column:flow_name" json:"flow_name"`
-	Description *string        `gorm:"column:description" json:"description"`
-	FlowData    *string        `gorm:"column:flow_data" json:"flow_data"`
-	CreatedAt   time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt   time.Time      `gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
+	ID           string         `gorm:"column:id;type:uuid;default:gen_random_uuid();primaryKey" json:"id"`
+	SystemTypeID string         `gorm:"column:system_type_id;type:uuid" json:"system_type_id"`
+	CategoryID   string         `gorm:"column:category_id;type:uuid" json:"category_id"`
+	FlowName     string         `gorm:"column:flow_name" json:"flow_name"`
+	Description  *string        `gorm:"column:description" json:"description"`
+	FlowData     *string        `gorm:"column:flow_data" json:"flow_data"`
+	CreatedAt    time.Time      `gorm:"column:created_at" json:"created_at"`
+	UpdatedAt    time.Time      `gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt    gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
 }
 
 func (w *Workflow) TableName() string {
@@ -21,8 +22,9 @@ func (w *Workflow) TableName() string {
 }
 
 type WorkflowCategory struct {
-	ID       string `gorm:"column:id;type:uuid;default:gen_random_uuid();primaryKey" json:"id"`
-	Category string `gorm:"column:category" json:"category"`
+	ID           string `gorm:"column:id;type:uuid;default:gen_random_uuid();primaryKey" json:"id"`
+	SystemTypeID string `gorm:"column:system_type_id;type:uuid" json:"system_type_id"`
+	Category     string `gorm:"column:category" json:"category"`
 }
 
 func (w *WorkflowCategory) TableName() string {
@@ -30,7 +32,7 @@ func (w *WorkflowCategory) TableName() string {
 }
 
 type WorkflowSystemType struct {
-	ID         string `gorm:"column:id;primaryKey;autoIncrement" json:"id"`
+	ID         string `gorm:"column:id;type:uuid;default:gen_random_uuid();primaryKey" json:"id"`
 	SystemType string `gorm:"column:system_type" json:"system_type"`
 }
 
