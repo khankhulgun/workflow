@@ -17,10 +17,12 @@ type ProcessStatusHistory struct {
 	Signature          *string   `gorm:"column:signature" json:"signature"`
 	RoleID             *int      `gorm:"column:role_id" json:"role_id"`
 	UserID             *string   `gorm:"column:user_id;type:uuid" json:"user_id"`
+	OrgRoleID          *int      `gorm:"column:org_role_id" json:"org_role_id"`
 	OrgID              *string   `gorm:"column:org_id;type:uuid" json:"org_id"`
 	StructID           *string   `gorm:"column:struct_id;type:uuid" json:"struct_id"`
 	JobID              *string   `gorm:"column:job_id;type:uuid" json:"job_id"`
 	EmpID              *string   `gorm:"column:emp_id;type:uuid" json:"emp_id"`
+	OrgRole            *int      `gorm:"column:org_role" json:"org_role"`
 	Org                *string   `gorm:"column:org;type:uuid" json:"org"`
 	Struct             *string   `gorm:"column:struct;type:uuid" json:"struct"`
 	Job                *string   `gorm:"column:job;type:uuid" json:"job"`
@@ -44,10 +46,12 @@ type ProcessVotingPeople struct {
 	SubjectType        string     `gorm:"column:subject_type" json:"subject_type"`
 	RoleID             *int       `gorm:"column:role_id" json:"role_id"`
 	UserID             *string    `gorm:"column:user_id;type:uuid" json:"user_id"`
+	OrgRoleID          *int       `gorm:"column:org_role_id" json:"org_role_id"`
 	OrgID              *string    `gorm:"column:org_id;type:uuid" json:"org_id"`
 	StructID           *string    `gorm:"column:struct_id;type:uuid" json:"struct_id"`
 	JobID              *string    `gorm:"column:job_id;type:uuid" json:"job_id"`
 	EmpID              *string    `gorm:"column:emp_id;type:uuid" json:"emp_id"`
+	OrgRole            *int       `gorm:"column:org_role" json:"org_role"`
 	Org                *string    `gorm:"column:org;type:uuid" json:"org"`
 	Struct             *string    `gorm:"column:struct;type:uuid" json:"struct"`
 	Job                *string    `gorm:"column:job;type:uuid" json:"job"`
