@@ -31,6 +31,7 @@ type ProcessStatusHistory struct {
 	Job                *string   `gorm:"column:job;type:uuid" json:"job"`
 	Emp                *string   `gorm:"column:emp;type:uuid" json:"emp"`
 	ActionNum          *int      `gorm:"column:action_num" json:"action_num"`
+	StatusAction       *string   `gorm:"column:status_action" json:"status_action"`
 }
 
 func (p *ProcessStatusHistory) TableName() string {
@@ -60,6 +61,7 @@ type ProcessVotingPeople struct {
 	Struct             *string    `gorm:"column:struct;type:uuid" json:"struct"`
 	Job                *string    `gorm:"column:job;type:uuid" json:"job"`
 	Emp                *string    `gorm:"column:emp;type:uuid" json:"emp"`
+	PreDescription     *string    `gorm:"column:pre_description" json:"pre_description"`
 }
 
 func (p *ProcessVotingPeople) TableName() string {

@@ -25,6 +25,9 @@ func Migrate() {
 		&models.ProcessVotingPeople{},
 		&models.ProcessStep{},
 		&models.SubProcessStepPort{},
+		&models.Example{},
+		&models.ExampleFullAccessUser{},
+		&models.ExampleChildConfig{},
 	)
 	if err != nil {
 		log.Fatalf("Failed to create table: %v", err)
