@@ -78,6 +78,19 @@ func Migrate() {
 		roles.display_name
 	FROM users
 	LEFT JOIN roles ON users.role = roles.id;
+
+	CREATE OR REPLACE VIEW "public"."view_roles" AS
+		 SELECT roles.id,
+    roles.name,
+    roles.display_name,
+    roles.description,
+    roles.permissions,
+    roles.extra,
+    roles.menu,
+    roles.created_at,
+    roles.updated_at,
+    roles.deleted_at
+   FROM roles;
 	`
 
 	err = DB.DB.Exec(createView).Error
