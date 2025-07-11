@@ -61,7 +61,7 @@ type ProcessVotingPeople struct {
 	Org                *string       `gorm:"column:org;type:uuid" json:"org"`
 	Struct             *string       `gorm:"column:struct;type:uuid" json:"struct"`
 	Job                *string       `gorm:"column:job;type:uuid" json:"job"`
-	Emp                *Employee     `gorm:"column:emp;type:uuid" json:"emp"`
+	Emp                *Employee     `gorm:"-" json:"emp"`
 	PreDescription     *string       `gorm:"column:pre_description" json:"pre_description"`
 	User               *WorkflowUser `gorm:"-" json:"user"`
 }

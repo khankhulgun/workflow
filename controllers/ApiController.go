@@ -144,11 +144,22 @@ func GetWorkflowsByCategory(c *fiber.Ctx) error {
 	if userPre["org_id"] != nil {
 		orgID := userPre["org_id"].(string)
 		if orgID != "" {
-			if err := DB.DB.Where("category_id = ? AND org_id", categoryID, orgID).Find(&workflows).Error; err != nil {
+			if err := DB.DB.Where("category_id = ? AND org_id = ?", categoryID, orgID).Find(&workflows).Error; err != nil {
 				return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 					"error":   "Failed to fetch workflows",
 					"details": err.Error(),
 				})
+			}
+
+			for i := range workflows {
+				var votingPeople []models.WorkflowVotingPeople
+				if err := DB.DB.Where("workflow_id = ?", workflows[i].ID).Find(&votingPeople).Error; err != nil {
+					return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+						"error":   "Failed to fetch voting people",
+						"details": err.Error(),
+					})
+				}
+				workflows[i].VotingPeople = votingPeople
 			}
 
 		}
