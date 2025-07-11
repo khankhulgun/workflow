@@ -30,6 +30,61 @@ func History(c *fiber.Ctx) error {
 
 	for i, _ := range statusHistories {
 
+		if statusHistories[i].EmpID != nil {
+			if *statusHistories[i].EmpID != "" {
+				var emp models.Employee
+				DB.DB.Where("id = ?", statusHistories[i].EmpID).Find(&emp)
+
+				statusHistories[i].Emp = &emp
+			}
+		}
+
+	}
+
+	for i, _ := range votingPeople {
+
+		if votingPeople[i].EmpID != nil {
+			if *votingPeople[i].EmpID != "" {
+				var emp models.Employee
+				DB.DB.Where("id = ?", statusHistories[i].EmpID).Find(&emp)
+
+				votingPeople[i].Emp = &emp
+			}
+		}
+
+	}
+	return c.JSON(map[string]interface{}{
+		"statusHistories": statusHistories,
+		"actionNumbers":   actionNumbers,
+		"votingPeople":    votingPeople,
+	})
+
+}
+
+func HistoryWithUser(c *fiber.Ctx) error {
+
+	id := c.Params("id")
+
+	var lastDone models.ProcessStatusHistory
+	var statusHistories []models.ProcessStatusHistory
+	var actionNumbers []models.ProcessStatusHistoryActionNum
+	var votingPeople []models.ProcessVotingPeople
+
+	DB.DB.Where("row_id = ? AND is_done = ? AND status_type = ?", id, 1, "END").Or("row_id = ? AND is_done = ? AND status_type = ?", id, 1, "CANCEL").First(&lastDone)
+
+	if (lastDone.ID != "" && lastDone.StatusType == "END") || (lastDone.ID != "" && lastDone.StatusType == "CANCEL") {
+
+		DB.DB.Where("row_id = ? AND is_done = ?", id, 1).Order("action_num, updated_at ASC").Find(&statusHistories)
+		DB.DB.Select("action_num").Where("row_id = ? AND is_done = ?", id, 1).Order("action_num ASC").Group("action_num").Find(&actionNumbers)
+	} else {
+		DB.DB.Where("row_id = ? AND status_type != ? AND status_type != ?", id, "END", "CANCEL").Order("action_num, updated_at ASC").Find(&statusHistories)
+		DB.DB.Select("action_num").Where("row_id = ? AND status_type != ? AND status_type != ?", id, "END", "CANCEL").Order("action_num ASC").Group("action_num").Find(&actionNumbers)
+	}
+
+	DB.DB.Where("row_id = ?", id).Order("signature_date ASC").Find(&votingPeople)
+
+	for i, _ := range statusHistories {
+
 		if statusHistories[i].UserID != "" {
 			var user models.WorkflowUser
 			DB.DB.Where("id = ?", statusHistories[i].UserID).Find(&user)

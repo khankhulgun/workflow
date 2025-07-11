@@ -60,34 +60,6 @@ func (u *Users) TableName() string {
 	return "public.users"
 }
 
-type Employee struct {
-	ID         string         `gorm:"column:id;primaryKey;autoIncrement" json:"id"`
-	OrgID      int            `gorm:"column:org_id" json:"org_id"`
-	StructID   string         `gorm:"column:struct_id" json:"struct_id"`
-	JobID      string         `gorm:"column:job_id" json:"job_id"`
-	StatusID   int            `gorm:"column:status_id" json:"status_id"`
-	UserID     string         `gorm:"column:user_id" json:"user_id"`
-	FirstName  string         `gorm:"column:first_name" json:"first_name"`
-	LastName   string         `gorm:"column:last_name" json:"last_name"`
-	Register   string         `gorm:"column:register" json:"register"`
-	Gender     *string        `gorm:"column:gender" json:"gender"`
-	Birthday   *time.Time     `gorm:"column:birthday" json:"birthday"`
-	ProvinceID int            `gorm:"column:province_id" json:"province_id"`
-	SoumID     int            `gorm:"column:soum_id" json:"soum_id"`
-	BaghID     int            `gorm:"column:bagh_id" json:"bagh_id"`
-	Address    *string        `gorm:"column:address" json:"address"`
-	Email      *string        `gorm:"column:email" json:"email"`
-	Phone      string         `gorm:"column:phone" json:"phone"`
-	CreatedAt  time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt  time.Time      `gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt  gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	EmpID      *string        `gorm:"column:emp_id" json:"emp_id"`
-}
-
-func (e *Employee) TableName() string {
-	return "organization.employee"
-}
-
 type Job struct {
 	ID             string         `gorm:"column:id;primaryKey;autoIncrement" json:"id"`
 	OrgID          int            `gorm:"column:org_id" json:"org_id"`

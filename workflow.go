@@ -19,6 +19,7 @@ func Set(app *fiber.App) {
 
 	p := app.Group("/process")
 	p.Get("/history/:id", controllers.History)
+	p.Get("/history-with-user/:id", controllers.HistoryWithUser)
 	p.Post("/notification", agentMW.IsLoggedIn(), controllers.SendNotification)
 
 	w := app.Group("/workflow")

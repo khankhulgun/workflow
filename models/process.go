@@ -29,7 +29,7 @@ type ProcessStatusHistory struct {
 	Org                *string       `gorm:"column:org;type:uuid" json:"org"`
 	Struct             *string       `gorm:"column:struct;type:uuid" json:"struct"`
 	Job                *string       `gorm:"column:job;type:uuid" json:"job"`
-	Emp                *string       `gorm:"column:emp;type:uuid" json:"emp"`
+	Emp                *Employee     `gorm:"column:emp;type:uuid" json:"emp"`
 	ActionNum          *int          `gorm:"column:action_num" json:"action_num"`
 	StatusAction       *string       `gorm:"column:status_action" json:"status_action"`
 	User               *WorkflowUser `gorm:"-" json:"user"`
@@ -61,7 +61,7 @@ type ProcessVotingPeople struct {
 	Org                *string       `gorm:"column:org;type:uuid" json:"org"`
 	Struct             *string       `gorm:"column:struct;type:uuid" json:"struct"`
 	Job                *string       `gorm:"column:job;type:uuid" json:"job"`
-	Emp                *string       `gorm:"column:emp;type:uuid" json:"emp"`
+	Emp                *Employee     `gorm:"column:emp;type:uuid" json:"emp"`
 	PreDescription     *string       `gorm:"column:pre_description" json:"pre_description"`
 	User               *WorkflowUser `gorm:"-" json:"user"`
 }
