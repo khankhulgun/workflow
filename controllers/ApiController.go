@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/khankhulgun/workflow/models"
 	"github.com/lambda-platform/lambda/DB"
+	agentUtils "github.com/lambda-platform/lambda/agent/utils"
 )
 
 func History(c *fiber.Ctx) error {
@@ -126,4 +127,32 @@ func Steps(c *fiber.Ctx) error {
 
 	// Return the JSON response
 	return c.JSON(ProcessSteps)
+}
+
+func GetWorkflowsByCategory(c *fiber.Ctx) error {
+	categoryID := c.Params("category_id")
+
+	userPre, err := agentUtils.AuthUserObject(c)
+
+	if err != nil {
+		c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"error":  err.Error(),
+			"status": false,
+		})
+	}
+	var workflows []models.Workflow
+	if userPre["org_id"] != nil {
+		orgID := userPre["org_id"].(string)
+		if orgID != "" {
+			if err := DB.DB.Where("category_id = ? AND org_id", categoryID, orgID).Find(&workflows).Error; err != nil {
+				return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+					"error":   "Failed to fetch workflows",
+					"details": err.Error(),
+				})
+			}
+
+		}
+	}
+
+	return c.JSON(workflows)
 }

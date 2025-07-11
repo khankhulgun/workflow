@@ -25,4 +25,6 @@ func Set(app *fiber.App) {
 	w := app.Group("/workflow")
 	w.Get("/steps", controllers.Steps)
 
+	w.Get("/workflows/:category_id", agentMW.IsLoggedIn(), controllers.GetWorkflowsByCategory)
+
 }

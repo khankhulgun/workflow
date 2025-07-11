@@ -7,6 +7,7 @@ import (
 
 type Workflow struct {
 	ID           string         `gorm:"column:id;type:uuid;default:gen_random_uuid();primaryKey" json:"id"`
+	OrgID        string         `gorm:"column:org_id;type:uuid" json:"org_id"`
 	SystemTypeID string         `gorm:"column:system_type_id;type:uuid" json:"system_type_id"`
 	CategoryID   string         `gorm:"column:category_id;type:uuid" json:"category_id"`
 	FlowName     string         `gorm:"column:flow_name" json:"flow_name"`
