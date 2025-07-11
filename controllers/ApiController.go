@@ -144,7 +144,7 @@ func GetWorkflowsByCategory(c *fiber.Ctx) error {
 	if userPre["org_id"] != nil {
 		orgID := userPre["org_id"].(string)
 		if orgID != "" {
-			if err := DB.DB.Where("category_id = ? AND org_id = ?", categoryID, orgID).Find(&workflows).Error; err != nil {
+			if err := DB.DB.Where("category_id = ? AND org_id = ?", categoryID, orgID).Order("created_at DESC").Find(&workflows).Error; err != nil {
 				return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 					"error":   "Failed to fetch workflows",
 					"details": err.Error(),
