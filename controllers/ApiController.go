@@ -29,28 +29,24 @@ func History(c *fiber.Ctx) error {
 
 	DB.DB.Where("row_id = ?", id).Order("signature_date ASC").Find(&votingPeople)
 
-	for i, _ := range statusHistories {
+	for i := range statusHistories {
 
-		if statusHistories[i].EmpID != nil {
-			if *statusHistories[i].EmpID != "" {
-				var emp models.Employee
-				DB.DB.Where("id = ?", statusHistories[i].EmpID).Find(&emp)
+		if statusHistories[i].EmpID != "" {
+			var emp models.Employee
+			DB.DB.Where("id = ?", statusHistories[i].EmpID).Find(&emp)
 
-				statusHistories[i].Emp = &emp
-			}
+			statusHistories[i].Emp = &emp
 		}
 
 	}
 
-	for i, _ := range votingPeople {
+	for i := range votingPeople {
 
-		if votingPeople[i].EmpID != nil {
-			if *votingPeople[i].EmpID != "" {
-				var emp models.Employee
-				DB.DB.Where("id = ?", statusHistories[i].EmpID).Find(&emp)
+		if votingPeople[i].EmpID != "" {
+			var emp models.Employee
+			DB.DB.Where("id = ?", statusHistories[i].EmpID).Find(&emp)
 
-				votingPeople[i].Emp = &emp
-			}
+			votingPeople[i].Emp = &emp
 		}
 
 	}
@@ -84,7 +80,7 @@ func HistoryWithUser(c *fiber.Ctx) error {
 
 	DB.DB.Where("row_id = ?", id).Order("signature_date ASC").Find(&votingPeople)
 
-	for i, _ := range statusHistories {
+	for i := range statusHistories {
 
 		if statusHistories[i].UserID != "" {
 			var user models.WorkflowUser
@@ -95,7 +91,7 @@ func HistoryWithUser(c *fiber.Ctx) error {
 
 	}
 
-	for i, _ := range votingPeople {
+	for i := range votingPeople {
 
 		if votingPeople[i].UserID != "" {
 			var user models.WorkflowUser
