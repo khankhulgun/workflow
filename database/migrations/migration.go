@@ -1,12 +1,19 @@
 package migrations
 
 import (
+	"log"
+
+	"github.com/khankhulgun/workflow/dbutil"
 	"github.com/khankhulgun/workflow/models"
 	"github.com/lambda-platform/lambda/DB"
-	"log"
 )
 
 func Migrate() {
+	if dbutil.IsOracle() {
+		// Oracle: tables already exist in EOFFICE schema — skip migration
+		return
+	}
+
 	createSchema := `
 	CREATE SCHEMA IF NOT EXISTS workflow_and_process;
 	`

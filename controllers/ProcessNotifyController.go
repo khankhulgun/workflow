@@ -3,7 +3,9 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/gofiber/fiber/v2"
+	"github.com/khankhulgun/workflow/dbutil"
 	"github.com/khankhulgun/workflow/models"
 	"github.com/lambda-platform/lambda/DB"
 	"github.com/lambda-platform/lambda/config"
@@ -12,6 +14,11 @@ import (
 )
 
 func SendNotification(c *fiber.Ctx) error {
+	if dbutil.IsOracle() {
+		// Oracle: Lambda generic notification not supported.
+		// Projects should implement their own notification handler.
+		return c.JSON(fiber.Map{"message": "Oracle notification — use project-specific handler"})
+	}
 
 	var step models.CurrentStep
 	var notification modelsModels.NotificationData

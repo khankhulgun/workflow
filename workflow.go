@@ -5,11 +5,15 @@ import (
 	"github.com/khankhulgun/workflow/controllers"
 	"github.com/khankhulgun/workflow/database/migrations"
 	"github.com/khankhulgun/workflow/database/seeds"
+	"github.com/khankhulgun/workflow/resolver"
 	"github.com/lambda-platform/lambda/agent/agentMW"
 	"github.com/lambda-platform/lambda/config"
 )
 
-func Set(app *fiber.App) {
+func Set(app *fiber.App, empResolver ...resolver.EmployeeResolver) {
+	if len(empResolver) > 0 {
+		controllers.SetResolver(empResolver[0])
+	}
 	if config.Config.App.Migrate == "true" {
 		migrations.Migrate()
 	}
